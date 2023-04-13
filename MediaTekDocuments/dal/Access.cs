@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
+using Serilog;
 
 namespace MediaTekDocuments.dal
 {
@@ -50,7 +51,11 @@ namespace MediaTekDocuments.dal
             String authenticationString;
             try
             {
-                authenticationString = "admin:adminpwd";
+
+                string login = ConfigurationManager.AppSettings["login"];
+                string motDePasse = ConfigurationManager.AppSettings["motdepasse"];
+
+                authenticationString = login + ":" + motDePasse;
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
             catch (Exception e)
@@ -58,6 +63,13 @@ namespace MediaTekDocuments.dal
                 Console.WriteLine(e.Message);
                 Environment.Exit(0);
             }
+            //log 
+            Log.Logger = new LoggerConfiguration()
+              .MinimumLevel.Verbose()
+              .WriteTo.Console()
+              .WriteTo.File("logs/log/txt",
+              rollingInterval: RollingInterval.Day)
+               .CreateLogger();
         }
 
         /// <summary>
@@ -161,6 +173,8 @@ namespace MediaTekDocuments.dal
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                Log.Information("erreur lors de la recuperation de la liste d'exemplaire ");
+
             }
             return false; 
         }
@@ -227,10 +241,12 @@ namespace MediaTekDocuments.dal
                 else
                 {
                     Console.WriteLine("code erreur = " + code + " message = " + (String)retour["message"]);
+                    Log.Information("la requete n'estpas correcte ");
                 }
             }catch(Exception e)
             {
                 Console.WriteLine("Erreur lors de l'accès à l'API : "+e.Message);
+                Log.Information("Connexion à l'API impossible  ");
                 Environment.Exit(0);
             }
             return liste;
