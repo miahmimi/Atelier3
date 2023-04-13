@@ -178,6 +178,16 @@ namespace MediaTekDocuments.dal
         {
             TraitementRecup<Commande>(DELETE, "commande/" + id);
         }
+        public List<DateTime> Getdateachat(int num)
+        {
+            List<DateTime> lesdates = TraitementRecup<DateTime>(GET, "exemplairedate/" + num);
+            return lesdates;
+        }
+        public List<Cmdrevue> Getallrevuecmd()
+        {
+            List<Cmdrevue> liste = TraitementRecup<Cmdrevue>(GET, "commanderevue");
+            return liste;
+        }
 
         public void deletecommandedocument(string id)
         {

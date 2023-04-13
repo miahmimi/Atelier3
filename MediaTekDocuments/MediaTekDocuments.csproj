@@ -67,6 +67,7 @@
     <Compile Include="controller\FrmMediatekController.cs" />
     <Compile Include="dal\Access.cs" />
     <Compile Include="model\CmdLivre.cs" />
+    <Compile Include="model\Cmdrevue.cs" />
     <Compile Include="model\Commande.cs" />
     <Compile Include="view\FrmMediatek.cs">
       <SubType>Form</SubType>

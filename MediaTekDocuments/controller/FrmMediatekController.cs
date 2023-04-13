@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MediaTekDocuments.model;
 using MediaTekDocuments.dal;
+using System;
 
 namespace MediaTekDocuments.controller
 {
@@ -115,6 +116,14 @@ namespace MediaTekDocuments.controller
         public List<CmdLivre> Getalldvdcmd()
         {
             return access.Getalldvdcmd();
+        }
+        public List<DateTime> Getdateachat(int num)
+        {
+            return access.Getdateachat(num);
+        }
+        public List<Cmdrevue> Getallrevuecmd()
+        {
+            return access.Getallrevuecmd();
         }
 
     }

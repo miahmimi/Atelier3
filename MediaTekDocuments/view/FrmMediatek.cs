@@ -1381,5 +1381,86 @@ namespace MediaTekDocuments.view
             dgvdvdcmd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
         #endregion
+
+
+        #region Commande revues 
+        private readonly BindingSource bdgrevues = new BindingSource();
+        private List<Cmdrevue> commanderevues = new List<Cmdrevue>();
+
+        private void tabPage3_Enter(object sender, EventArgs e)
+        {
+            commanderevues = controller.Getallrevuecmd();
+            Remplirrevuecommandeliste();
+        }
+        public void Remplirrevuecommandeliste()
+        {
+            Remplirlisterevue(commanderevues);
+
+
+        }
+        public void Remplirlisterevue(List<Cmdrevue> revues)
+        {
+            bdgrevues.DataSource = revues;
+            dgvcmdRevue.DataSource = bdgrevues;
+            dgvcmdRevue.Columns["Id"].DisplayIndex = 0;
+            dgvcmdRevue.Columns["Date"].DisplayIndex = 1;
+            dgvcmdRevue.Columns["Revue"].DisplayIndex = 2;
+
+
+
+            dgvcmdRevue.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dgvcmdRevue.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = dgvcmdRevue.SelectedRows[0];
+                int num = Convert.ToInt32(row.Cells["Num"].Value);
+                DateTime datefin = Convert.ToDateTime(row.Cells["Fin_abonnement"].Value);
+                DateTime datecommande = Convert.ToDateTime(row.Cells["Date"].Value);
+                List<DateTime> dateAchatexemplaire = controller.Getdateachat(num);
+                string idcommande = Convert.ToString(row.Cells["Id"].Value);
+
+                if (MessageBox.Show("Voulez-vous vraiment supprimer cet élément ?", "Confirmation de suppression", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    controller.Deletecommande(idcommande);
+                    RemplircommandeLivrecompletement();
+                }
+            }
+        }
+        public bool ParutionDansAbonnement(DateTime datecommande, DateTime datefinabonnemnt, DateTime dateparution)
+        {
+            bool rep = false;
+            // dateparution= controller.getdateparution()
+            if (dateparution >= datecommande && dateparution <= datefinabonnemnt)
+            {
+                rep = true;
+            }
+            return rep;
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (txtidrevue.Text != "")
+            {
+                Cmdrevue cmdrevue = commanderevues.Find(x => x.Revue.Equals(txtidrevue.Text));
+                if (cmdrevue != null)
+                {
+                    List<Cmdrevue> commande = new List<Cmdrevue>() { cmdrevue };
+                    Remplirlisterevue(commande);
+                }
+                else
+                {
+                    MessageBox.Show("Article introuvable ");
+                    RemplircommandeLivrecompletement();
+                }
+            }
+        }
+
+
+        #endregion
+
+
     }
 }
