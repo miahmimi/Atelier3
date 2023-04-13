@@ -67,7 +67,15 @@
     <Compile Include="controller\FrmMediatekController.cs" />
     <Compile Include="dal\Access.cs" />
     <Compile Include="model\CmdLivre.cs" />
+    <Compile Include="model\Cmdrevue.cs" />
     <Compile Include="model\Commande.cs" />
+    <Compile Include="model\Utilisateur.cs" />
+    <Compile Include="view\Authentification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\Authentification.Designer.cs">
+      <DependentUpon>Authentification.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\FrmMediatek.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +104,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="view\Authentification.resx">
+      <DependentUpon>Authentification.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\FrmMediatek.resx">
       <DependentUpon>FrmMediatek.cs</DependentUpon>
     </EmbeddedResource>
