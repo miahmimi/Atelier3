@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MediaTekDocuments.model
 {
+    /// <summary>
+    /// Classe métier CmdLivre : hérite de Commande 
+    /// </summary>
     public class CmdLivre : Commande
     {
         public string Etape { get; set; }

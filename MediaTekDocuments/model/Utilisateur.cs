@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MediaTekDocuments.model
 {
+    /// <summary>
+    /// Classe métier Utilisateur : contient les propriétés d'un utilisateur 
+    /// </summary>
     public class Utilisateur
     {
 

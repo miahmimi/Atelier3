@@ -1359,18 +1359,30 @@ namespace MediaTekDocuments.view
         private readonly BindingSource bdgDvdListecmd = new BindingSource();
         private List<CmdLivre> dvdcmd = new List<CmdLivre>();
 
+        /// <summary>
+        /// Ouverture de l'onglet Commande DVD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tabPage2_Enter(object sender, EventArgs e)
         {
             dvdcmd = controller.Getalldvdcmd();
             Rempliredvdcommandeliste();
 
         }
+        /// <summary>
+        ///  Affichage de la liste complète des livres
+        /// </summary>
         public void Rempliredvdcommandeliste()
         {
             Remplirlistedvd(dvdcmd);
 
-
+           
         }
+        /// <summary>
+        /// Remplir le datagridview avec liste recue en paramètre 
+        /// </summary>
+        /// <param name="revues"></param>
         public void Remplirlistedvd(List<CmdLivre> revues)
         {
             bdgDvdListecmd.DataSource = revues;
@@ -1386,12 +1398,20 @@ namespace MediaTekDocuments.view
         #region Commande revues 
         private readonly BindingSource bdgrevues = new BindingSource();
         private List<Cmdrevue> commanderevues = new List<Cmdrevue>();
-
+        /// <summary>
+        /// Ouverture de l'onglet Commande revues : 
+        ///  remplir le datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tabPage3_Enter(object sender, EventArgs e)
         {
             commanderevues = controller.Getallrevuecmd();
             Remplirrevuecommandeliste();
         }
+        /// <summary>
+        /// Methode pour remplir le datagridview des commandes revues 
+        /// </summary>
         public void Remplirrevuecommandeliste()
         {
             Remplirlisterevue(commanderevues);
@@ -1412,6 +1432,11 @@ namespace MediaTekDocuments.view
 
 
         }
+        /// <summary>
+        /// Suppression d'une commande de revues
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
             if (dgvcmdRevue.SelectedRows.Count > 0)
@@ -1430,6 +1455,13 @@ namespace MediaTekDocuments.view
                 }
             }
         }
+        /// <summary>
+        /// Methode de vérifiction date  avant suppression  
+        /// </summary>
+        /// <param name="datecommande"></param>
+        /// <param name="datefinabonnemnt"></param>
+        /// <param name="dateparution"></param>
+        /// <returns></returns>
         public bool ParutionDansAbonnement(DateTime datecommande, DateTime datefinabonnemnt, DateTime dateparution)
         {
             bool rep = false;
@@ -1440,6 +1472,11 @@ namespace MediaTekDocuments.view
             }
             return rep;
         }
+        /// <summary>
+        /// Rechercher une commande a partir d'un id revue 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
             if (txtidrevue.Text != "")

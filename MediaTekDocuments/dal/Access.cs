@@ -36,10 +36,7 @@ namespace MediaTekDocuments.dal
         /// </summary>
         private const string POST = "POST";
         /// <summary>
-        /// méthode HTTP pour update
-
-
-
+        /// méthode HTTP pour delete
         private const string DELETE = "DELETE";
 
         /// <summary>
@@ -178,25 +175,46 @@ namespace MediaTekDocuments.dal
             }
             return false; 
         }
+
+        /// <summary>
+        /// Récupérer la liste de commande de livres 
+        /// </summary>
+        /// <returns></returns>
         public List<CmdLivre> GetAllcommandeLivre()
         {
             List<CmdLivre> Laliste = TraitementRecup<CmdLivre>(GET, "commandeLivre");
             return Laliste;
         }
+        /// <summary>
+        /// Ajouter une commande 
+        /// </summary>
+        /// <param name="commande"></param>
         public void addcommandeLivre(Commande commande)
         {
             String jsonCommande = JsonConvert.SerializeObject(commande, new CustomDateTimeConverter());
             TraitementRecup<Commande>(POST, "commande/" + jsonCommande);
         }
+
+        /// <summary>
+        /// Supprimer une commande
+        /// </summary>
+        /// <param name="id"></param>
         public void deletecommande(String id)
         {
             TraitementRecup<Commande>(DELETE, "commande/" + id);
         }
+
+     
         public List<DateTime> Getdateachat(int num)
         {
             List<DateTime> lesdates = TraitementRecup<DateTime>(GET, "exemplairedate/" + num);
             return lesdates;
         }
+
+        /// <summary>
+        /// Récupérer la liste de commande de revues
+        /// </summary>
+        /// <returns></returns>
         public List<Cmdrevue> Getallrevuecmd()
         {
             List<Cmdrevue> liste = TraitementRecup<Cmdrevue>(GET, "commanderevue");
@@ -207,6 +225,11 @@ namespace MediaTekDocuments.dal
         {
             TraitementRecup<CmdLivre>(DELETE, "commandedocument/" + id);
         }
+
+        /// <summary>
+        /// Récupérer la liste de commande de DVD
+        /// </summary>
+        /// <returns></returns>
         public List<CmdLivre> Getalldvdcmd()
         {
             List<CmdLivre> lesdates = TraitementRecup<CmdLivre>(GET, "commandedvd");

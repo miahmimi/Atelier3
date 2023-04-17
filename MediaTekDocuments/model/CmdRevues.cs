@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace MediaTekDocuments.model
 {
     /// <summary>
-    /// Classe métier Cmdrevue : hérite de Commande 
+    /// Classe métier CmdRevues hérite de Commande : contient des propriétés spécifiques à la commande de revues
     /// </summary>
-    public class Cmdrevue : Commande 
+    public class CmdRevues :Commande
     {
         public DateTime Fin_abonnement { get; set; }
         public String Revue { get; set; }
         public int Num { get; set; }
 
-        public Cmdrevue(DateTime dateFinAbonnement, DateTime dateCommande, int montant, string id, string idRevue, int numero) : base(id, dateCommande, montant)
+        public CmdRevues(DateTime dateFinAbonnement, DateTime dateCommande, int montant, string id, string idRevue, int numero) : base(id, dateCommande, montant)
         {
             Fin_abonnement = dateFinAbonnement;
             Revue = idRevue;
