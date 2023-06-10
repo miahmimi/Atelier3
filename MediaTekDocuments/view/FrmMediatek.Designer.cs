@@ -184,11 +184,11 @@ namespace MediaTekDocuments.view
             this.txtnewetape = new System.Windows.Forms.TextBox();
             this.label65 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dtpcmdL = new System.Windows.Forms.DateTimePicker();
             this.txtidlivre = new System.Windows.Forms.TextBox();
             this.label71 = new System.Windows.Forms.Label();
             this.txtnbcmdL = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
-            this.dtpcmdL = new System.Windows.Forms.DateTimePicker();
             this.txtmontantcmdL = new System.Windows.Forms.TextBox();
             this.txtidcmdL = new System.Windows.Forms.TextBox();
             this.btnajoutcmdL = new System.Windows.Forms.Button();
@@ -203,13 +203,13 @@ namespace MediaTekDocuments.view
             this.dgvcommandeLivre = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label74 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.dtpcmddvd = new System.Windows.Forms.DateTimePicker();
+            this.txtdvdidcmd = new System.Windows.Forms.TextBox();
+            this.DVD = new System.Windows.Forms.Label();
+            this.txtcmddvdnb = new System.Windows.Forms.TextBox();
             this.label75 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtcmddvdmontant = new System.Windows.Forms.TextBox();
+            this.txtiddvdcmd = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label76 = new System.Windows.Forms.Label();
             this.label77 = new System.Windows.Forms.Label();
@@ -223,10 +223,11 @@ namespace MediaTekDocuments.view
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dtpfinabonnement = new System.Windows.Forms.DateTimePicker();
+            this.dtpcommandere = new System.Windows.Forms.DateTimePicker();
+            this.label74 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
             this.txtidr = new System.Windows.Forms.TextBox();
             this.label67 = new System.Windows.Forms.Label();
-            this.dtpcmdrevue = new System.Windows.Forms.DateTimePicker();
             this.txtmontantr = new System.Windows.Forms.TextBox();
             this.txtidcmdr = new System.Windows.Forms.TextBox();
             this.btnajoutcmdrevue = new System.Windows.Forms.Button();
@@ -2071,11 +2072,11 @@ namespace MediaTekDocuments.view
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.dtpcmdL);
             this.groupBox2.Controls.Add(this.txtidlivre);
             this.groupBox2.Controls.Add(this.label71);
             this.groupBox2.Controls.Add(this.txtnbcmdL);
             this.groupBox2.Controls.Add(this.label64);
-            this.groupBox2.Controls.Add(this.dtpcmdL);
             this.groupBox2.Controls.Add(this.txtmontantcmdL);
             this.groupBox2.Controls.Add(this.txtidcmdL);
             this.groupBox2.Controls.Add(this.btnajoutcmdL);
@@ -2088,6 +2089,15 @@ namespace MediaTekDocuments.view
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ajouter une commande ";
+            // 
+            // dtpcmdL
+            // 
+            this.dtpcmdL.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpcmdL.Location = new System.Drawing.Point(144, 180);
+            this.dtpcmdL.Margin = new System.Windows.Forms.Padding(4);
+            this.dtpcmdL.Name = "dtpcmdL";
+            this.dtpcmdL.Size = new System.Drawing.Size(158, 22);
+            this.dtpcmdL.TabIndex = 6;
             // 
             // txtidlivre
             // 
@@ -2120,13 +2130,6 @@ namespace MediaTekDocuments.view
             this.label64.Size = new System.Drawing.Size(38, 17);
             this.label64.TabIndex = 10;
             this.label64.Text = "Date";
-            // 
-            // dtpcmdL
-            // 
-            this.dtpcmdL.Location = new System.Drawing.Point(99, 185);
-            this.dtpcmdL.Name = "dtpcmdL";
-            this.dtpcmdL.Size = new System.Drawing.Size(209, 22);
-            this.dtpcmdL.TabIndex = 9;
             // 
             // txtmontantcmdL
             // 
@@ -2173,7 +2176,7 @@ namespace MediaTekDocuments.view
             // label61
             // 
             this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(16, 102);
+            this.label61.Location = new System.Drawing.Point(16, 105);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(138, 17);
             this.label61.TabIndex = 3;
@@ -2255,13 +2258,13 @@ namespace MediaTekDocuments.view
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.textBox1);
-            this.groupBox6.Controls.Add(this.label74);
-            this.groupBox6.Controls.Add(this.textBox2);
+            this.groupBox6.Controls.Add(this.dtpcmddvd);
+            this.groupBox6.Controls.Add(this.txtdvdidcmd);
+            this.groupBox6.Controls.Add(this.DVD);
+            this.groupBox6.Controls.Add(this.txtcmddvdnb);
             this.groupBox6.Controls.Add(this.label75);
-            this.groupBox6.Controls.Add(this.dateTimePicker1);
-            this.groupBox6.Controls.Add(this.textBox3);
-            this.groupBox6.Controls.Add(this.textBox4);
+            this.groupBox6.Controls.Add(this.txtcmddvdmontant);
+            this.groupBox6.Controls.Add(this.txtiddvdcmd);
             this.groupBox6.Controls.Add(this.button1);
             this.groupBox6.Controls.Add(this.label76);
             this.groupBox6.Controls.Add(this.label77);
@@ -2273,28 +2276,37 @@ namespace MediaTekDocuments.view
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Ajouter une commande ";
             // 
-            // textBox1
+            // dtpcmddvd
             // 
-            this.textBox1.Location = new System.Drawing.Point(144, 141);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(158, 22);
-            this.textBox1.TabIndex = 13;
+            this.dtpcmddvd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpcmddvd.Location = new System.Drawing.Point(144, 185);
+            this.dtpcmddvd.Margin = new System.Windows.Forms.Padding(4);
+            this.dtpcmddvd.Name = "dtpcmddvd";
+            this.dtpcmddvd.Size = new System.Drawing.Size(158, 22);
+            this.dtpcmddvd.TabIndex = 14;
             // 
-            // label74
+            // txtdvdidcmd
             // 
-            this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(22, 146);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(39, 17);
-            this.label74.TabIndex = 12;
-            this.label74.Text = "Livre";
+            this.txtdvdidcmd.Location = new System.Drawing.Point(144, 141);
+            this.txtdvdidcmd.Name = "txtdvdidcmd";
+            this.txtdvdidcmd.Size = new System.Drawing.Size(158, 22);
+            this.txtdvdidcmd.TabIndex = 13;
             // 
-            // textBox2
+            // DVD
             // 
-            this.textBox2.Location = new System.Drawing.Point(144, 102);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(158, 22);
-            this.textBox2.TabIndex = 11;
+            this.DVD.AutoSize = true;
+            this.DVD.Location = new System.Drawing.Point(22, 146);
+            this.DVD.Name = "DVD";
+            this.DVD.Size = new System.Drawing.Size(39, 17);
+            this.DVD.TabIndex = 12;
+            this.DVD.Text = "Livre";
+            // 
+            // txtcmddvdnb
+            // 
+            this.txtcmddvdnb.Location = new System.Drawing.Point(144, 102);
+            this.txtcmddvdnb.Name = "txtcmddvdnb";
+            this.txtcmddvdnb.Size = new System.Drawing.Size(158, 22);
+            this.txtcmddvdnb.TabIndex = 11;
             // 
             // label75
             // 
@@ -2305,26 +2317,19 @@ namespace MediaTekDocuments.view
             this.label75.TabIndex = 10;
             this.label75.Text = "Date";
             // 
-            // dateTimePicker1
+            // txtcmddvdmontant
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(99, 185);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(209, 22);
-            this.dateTimePicker1.TabIndex = 9;
+            this.txtcmddvdmontant.Location = new System.Drawing.Point(144, 61);
+            this.txtcmddvdmontant.Name = "txtcmddvdmontant";
+            this.txtcmddvdmontant.Size = new System.Drawing.Size(158, 22);
+            this.txtcmddvdmontant.TabIndex = 8;
             // 
-            // textBox3
+            // txtiddvdcmd
             // 
-            this.textBox3.Location = new System.Drawing.Point(144, 61);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(158, 22);
-            this.textBox3.TabIndex = 8;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(144, 29);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(158, 22);
-            this.textBox4.TabIndex = 7;
+            this.txtiddvdcmd.Location = new System.Drawing.Point(144, 29);
+            this.txtiddvdcmd.Name = "txtiddvdcmd";
+            this.txtiddvdcmd.Size = new System.Drawing.Size(158, 22);
+            this.txtiddvdcmd.TabIndex = 7;
             // 
             // button1
             // 
@@ -2334,6 +2339,7 @@ namespace MediaTekDocuments.view
             this.button1.TabIndex = 6;
             this.button1.Text = "Ajouter";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label76
             // 
@@ -2384,6 +2390,7 @@ namespace MediaTekDocuments.view
             this.btnsupprdvd.TabIndex = 4;
             this.btnsupprdvd.Text = "Supprimer";
             this.btnsupprdvd.UseVisualStyleBackColor = true;
+            this.btnsupprdvd.Click += new System.EventHandler(this.btnsupprdvd_Click);
             // 
             // btnrecherdvd
             // 
@@ -2393,6 +2400,7 @@ namespace MediaTekDocuments.view
             this.btnrecherdvd.TabIndex = 3;
             this.btnrecherdvd.Text = "Rechercher";
             this.btnrecherdvd.UseVisualStyleBackColor = true;
+            this.btnrecherdvd.Click += new System.EventHandler(this.btnrecherdvd_Click);
             // 
             // label73
             // 
@@ -2437,10 +2445,11 @@ namespace MediaTekDocuments.view
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.dtpfinabonnement);
+            this.groupBox4.Controls.Add(this.dtpcommandere);
+            this.groupBox4.Controls.Add(this.label74);
             this.groupBox4.Controls.Add(this.label72);
             this.groupBox4.Controls.Add(this.txtidr);
             this.groupBox4.Controls.Add(this.label67);
-            this.groupBox4.Controls.Add(this.dtpcmdrevue);
             this.groupBox4.Controls.Add(this.txtmontantr);
             this.groupBox4.Controls.Add(this.txtidcmdr);
             this.groupBox4.Controls.Add(this.btnajoutcmdrevue);
@@ -2456,15 +2465,34 @@ namespace MediaTekDocuments.view
             // 
             // dtpfinabonnement
             // 
-            this.dtpfinabonnement.Location = new System.Drawing.Point(156, 175);
+            this.dtpfinabonnement.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpfinabonnement.Location = new System.Drawing.Point(156, 187);
+            this.dtpfinabonnement.Margin = new System.Windows.Forms.Padding(4);
             this.dtpfinabonnement.Name = "dtpfinabonnement";
             this.dtpfinabonnement.Size = new System.Drawing.Size(146, 22);
-            this.dtpfinabonnement.TabIndex = 13;
+            this.dtpfinabonnement.TabIndex = 17;
+            // 
+            // dtpcommandere
+            // 
+            this.dtpcommandere.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpcommandere.Location = new System.Drawing.Point(156, 141);
+            this.dtpcommandere.Margin = new System.Windows.Forms.Padding(4);
+            this.dtpcommandere.Name = "dtpcommandere";
+            this.dtpcommandere.Size = new System.Drawing.Size(146, 22);
+            this.dtpcommandere.TabIndex = 16;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(16, 141);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(0, 17);
+            this.label74.TabIndex = 14;
             // 
             // label72
             // 
             this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(16, 175);
+            this.label72.Location = new System.Drawing.Point(16, 187);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(144, 17);
             this.label72.TabIndex = 12;
@@ -2482,16 +2510,9 @@ namespace MediaTekDocuments.view
             this.label67.AutoSize = true;
             this.label67.Location = new System.Drawing.Point(16, 141);
             this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(38, 17);
+            this.label67.Size = new System.Drawing.Size(111, 17);
             this.label67.TabIndex = 10;
-            this.label67.Text = "Date";
-            // 
-            // dtpcmdrevue
-            // 
-            this.dtpcmdrevue.Location = new System.Drawing.Point(93, 141);
-            this.dtpcmdrevue.Name = "dtpcmdrevue";
-            this.dtpcmdrevue.Size = new System.Drawing.Size(209, 22);
-            this.dtpcmdrevue.TabIndex = 9;
+            this.label67.Text = "Date commande";
             // 
             // txtmontantr
             // 
@@ -2515,6 +2536,7 @@ namespace MediaTekDocuments.view
             this.btnajoutcmdrevue.TabIndex = 6;
             this.btnajoutcmdrevue.Text = "Ajouter";
             this.btnajoutcmdrevue.UseVisualStyleBackColor = true;
+            this.btnajoutcmdrevue.Click += new System.EventHandler(this.btnajoutcmdrevue_Click);
             // 
             // label68
             // 
@@ -2565,6 +2587,7 @@ namespace MediaTekDocuments.view
             this.btnsupprcmdrevue.TabIndex = 4;
             this.btnsupprcmdrevue.Text = "Supprimer";
             this.btnsupprcmdrevue.UseVisualStyleBackColor = true;
+            this.btnsupprcmdrevue.Click += new System.EventHandler(this.btnsupprcmdrevue_Click);
             // 
             // btnrecherrevue
             // 
@@ -2574,6 +2597,7 @@ namespace MediaTekDocuments.view
             this.btnrecherrevue.TabIndex = 3;
             this.btnrecherrevue.Text = "Rechercher";
             this.btnrecherrevue.UseVisualStyleBackColor = true;
+            this.btnrecherrevue.Click += new System.EventHandler(this.btnrecherrevue_Click);
             // 
             // label66
             // 
@@ -2827,7 +2851,6 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.Label label71;
         private System.Windows.Forms.TextBox txtnbcmdL;
         private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.DateTimePicker dtpcmdL;
         private System.Windows.Forms.TextBox txtmontantcmdL;
         private System.Windows.Forms.TextBox txtidcmdL;
         private System.Windows.Forms.Button btnajoutcmdL;
@@ -2842,13 +2865,12 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.DataGridView dgvcommandeLivre;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label74;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtdvdidcmd;
+        private System.Windows.Forms.Label DVD;
+        private System.Windows.Forms.TextBox txtcmddvdnb;
         private System.Windows.Forms.Label label75;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtcmddvdmontant;
+        private System.Windows.Forms.TextBox txtiddvdcmd;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label76;
         private System.Windows.Forms.Label label77;
@@ -2861,11 +2883,9 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.DataGridView dgvdvdcmd;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.DateTimePicker dtpfinabonnement;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.TextBox txtidr;
         private System.Windows.Forms.Label label67;
-        private System.Windows.Forms.DateTimePicker dtpcmdrevue;
         private System.Windows.Forms.TextBox txtmontantr;
         private System.Windows.Forms.TextBox txtidcmdr;
         private System.Windows.Forms.Button btnajoutcmdrevue;
@@ -2878,6 +2898,11 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.TextBox txtidrevue;
         private System.Windows.Forms.DataGridView dgvcmdRevue;
+        private System.Windows.Forms.DateTimePicker dtpcmdL;
+        private System.Windows.Forms.DateTimePicker dtpcmddvd;
+        private System.Windows.Forms.DateTimePicker dtpfinabonnement;
+        private System.Windows.Forms.DateTimePicker dtpcommandere;
+        private System.Windows.Forms.Label label74;
     }
 }
 

@@ -13,13 +13,13 @@ namespace MediaTekDocuments.model
     {
         public DateTime Fin_abonnement { get; set; }
         public String Revue { get; set; }
-        public int Num { get; set; }
+        public int Numero { get; set; }
 
-        public Cmdrevue(DateTime dateFinAbonnement, DateTime dateCommande, int montant, string id, string idRevue, int numero) : base(id, dateCommande, montant)
+        public Cmdrevue(DateTime dateFinAbonnement, DateTime dateCommande, string montant, string id, string idRevue, int numero) : base(id, dateCommande, montant)
         {
             Fin_abonnement = dateFinAbonnement;
             Revue = idRevue;
-            Num = numero;
+            Numero = numero;
         }
     }
 }

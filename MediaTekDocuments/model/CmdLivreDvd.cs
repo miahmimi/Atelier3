@@ -9,13 +9,13 @@ namespace MediaTekDocuments.model
     /// <summary>
     /// Classe métier CmdLivre : hérite de Commande 
     /// </summary>
-    public class CmdLivre : Commande
+    public class CmdLivreDvd : Commande
     {
         public string Etape { get; set; }
         public int Quantité { get; set; }
         public string idArticle { get; set; }
 
-        public CmdLivre(string etape, int nbExemplaire, string idLivreDvd, string id, DateTime dateCommande, int montant) : base(id, dateCommande, montant)
+        public CmdLivreDvd(string etape, int nbExemplaire, string idLivreDvd, string id, DateTime dateCommande, string montant) : base(id, dateCommande, montant)
         //base(id,dateCommande,montant)
         {
             Etape = etape;

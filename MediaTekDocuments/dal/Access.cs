@@ -7,6 +7,9 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 using Serilog;
+using System.Net.Http;
+using System.Text;
+using Ubiety.Dns.Core;
 
 namespace MediaTekDocuments.dal
 {
@@ -18,7 +21,9 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// adresse de l'API
         /// </summary>
-        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        // private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        private static readonly string uriApi = "https://monprojet.alwaysdata.net/";
+        
         /// <summary>
         /// instance unique de la classe
         /// </summary>
@@ -35,6 +40,8 @@ namespace MediaTekDocuments.dal
         /// méthode HTTP pour insert
         /// </summary>
         private const string POST = "POST";
+
+        private const string PUT = "PUT";
         /// <summary>
         /// méthode HTTP pour delete
         private const string DELETE = "DELETE";
@@ -54,6 +61,7 @@ namespace MediaTekDocuments.dal
 
                 authenticationString = login + ":" + motDePasse;
                 api = ApiRest.GetInstance(uriApi, authenticationString);
+            
             }
             catch (Exception e)
             {
@@ -81,7 +89,9 @@ namespace MediaTekDocuments.dal
             }
             return instance;
         }
-
+        
+        
+       
         /// <summary>
         /// Retourne tous les genres à partir de la BDD
         /// </summary>
@@ -101,7 +111,16 @@ namespace MediaTekDocuments.dal
             IEnumerable<Rayon> lesRayons = TraitementRecup<Rayon>(GET, "rayon");
             return new List<Categorie>(lesRayons);
         }
+        
+        public List<service> getrole( )
+        {
+             
+             List<service> leservice =  TraitementRecup<service>(GET, "utilisateur");
+             return leservice ;
+            
 
+
+        }
         /// <summary>
         /// Retourne toutes les catégories de public à partir de la BDD
         /// </summary>
@@ -180,31 +199,66 @@ namespace MediaTekDocuments.dal
         /// Récupérer la liste de commande de livres 
         /// </summary>
         /// <returns></returns>
-        public List<CmdLivre> GetAllcommandeLivre()
+        public List<CmdLivreDvd> GetAllcommandeLivre()
         {
-            List<CmdLivre> Laliste = TraitementRecup<CmdLivre>(GET, "commandeLivre");
+            List<CmdLivreDvd> Laliste = TraitementRecup<CmdLivreDvd>(GET, "commandeLivre");
             return Laliste;
         }
         /// <summary>
         /// Ajouter une commande 
         /// </summary>
         /// <param name="commande"></param>
-        public void addcommandeLivre(Commande commande)
+        public bool addcommandeLivre(Commande commande)
         {
+            // var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(commande , new CustomDateTimeConverter());
+            // var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            Console.Write(commande);
             String jsonCommande = JsonConvert.SerializeObject(commande, new CustomDateTimeConverter());
-            TraitementRecup<Commande>(POST, "commande/" + jsonCommande);
+            List<Commande> liste= TraitementRecup<Commande>(POST, "commande/" + jsonCommande);
+            return (liste != null);
         }
+        
+        public bool addcommandeLivretable(CommandeDoc commandeL)
+        {
+            //Console.Write(commande);
+            String jsonCommandelivre = JsonConvert.SerializeObject(commandeL, new CustomDateTimeConverter());
+            List<CommandeDoc> listeL = TraitementRecup<CommandeDoc>(POST, "commandedocument/" + jsonCommandelivre);
+            return (listeL != null);
+        }
+        
+        /// <summary>
+        /// Ajouter un abonnement revue 
+        /// </summary>
+        /// <param name="abn"></param>
+        /// <returns></returns>
+        public bool Addabonnement(Abonnement abn)
+        {
+            String jsonabonnement = JsonConvert.SerializeObject(abn, new CustomDateTimeConverter());
+            List<Abonnement> listeL = TraitementRecup<Abonnement>(POST, "abonnement/" + jsonabonnement);
+            return (listeL != null);
+        }
+
 
         /// <summary>
         /// Supprimer une commande
         /// </summary>
         /// <param name="id"></param>
-        public void deletecommande(String id)
+        public bool deletecommande(Commande c)
         {
-            TraitementRecup<Commande>(DELETE, "commande/" + id);
+            String jsondeletecmd = JsonConvert.SerializeObject(c, new CustomDateTimeConverter());
+            List<Commande>unecommande  = TraitementRecup<Commande>(DELETE, "commande/" + jsondeletecmd);
+            return (unecommande!=null);
+            //HttpResponseMessage response = await uriApi.DeleteAsync(apiUrl + ligneId);
+        }
+        
+
+        public List<CmdLivreDvd> modifcmd(string id , etape etape)
+        {
+            String jsonmodif = JsonConvert.SerializeObject(etape);
+            List <CmdLivreDvd> listeapresmodif = TraitementRecup<CmdLivreDvd>(PUT, "commandedocument/"+id +"/"+ jsonmodif);
+            return listeapresmodif ;
         }
 
-     
         public List<DateTime> Getdateachat(int num)
         {
             List<DateTime> lesdates = TraitementRecup<DateTime>(GET, "exemplairedate/" + num);
@@ -218,21 +272,22 @@ namespace MediaTekDocuments.dal
         public List<Cmdrevue> Getallrevuecmd()
         {
             List<Cmdrevue> liste = TraitementRecup<Cmdrevue>(GET, "commanderevue");
+            
             return liste;
         }
 
         public void deletecommandedocument(string id)
         {
-            TraitementRecup<CmdLivre>(DELETE, "commandedocument/" + id);
+            TraitementRecup<CmdLivreDvd>(DELETE, "commande/" + id);
         }
 
         /// <summary>
         /// Récupérer la liste de commande de DVD
         /// </summary>
         /// <returns></returns>
-        public List<CmdLivre> Getalldvdcmd()
+        public List<CmdLivreDvd> Getalldvdcmd()
         {
-            List<CmdLivre> lesdates = TraitementRecup<CmdLivre>(GET, "commandedvd");
+            List<CmdLivreDvd> lesdates = TraitementRecup<CmdLivreDvd>(GET, "commandedvd");
             return lesdates;
         }
 
@@ -264,7 +319,7 @@ namespace MediaTekDocuments.dal
                 else
                 {
                     Console.WriteLine("code erreur = " + code + " message = " + (String)retour["message"]);
-                    Log.Information("la requete n'estpas correcte ");
+                    Log.Information("la requete n'est pas correcte ");
                 }
             }catch(Exception e)
             {

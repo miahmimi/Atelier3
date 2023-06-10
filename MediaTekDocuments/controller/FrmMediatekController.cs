@@ -49,6 +49,11 @@ namespace MediaTekDocuments.controller
         {
             return access.GetAllDvd();
         }
+        
+        public List<service> Getrole()
+        {
+             return access.getrole( );
+        }
 
         /// <summary>
         /// getter sur la liste des revues
@@ -97,23 +102,38 @@ namespace MediaTekDocuments.controller
         {
             return access.CreerExemplaire(exemplaire);
         }
-        public List<CmdLivre> GetAllcommandeLivre()
+        public List<CmdLivreDvd> GetAllcommandeLivre()
         {
             return access.GetAllcommandeLivre();
         }
-        public void AddcommandeLivre(Commande cmd)
+         public bool Addabonnement(Abonnement abn)
         {
-            access.addcommandeLivre(cmd);
+           
+            Console.Write(abn);
+            return access.Addabonnement(abn);
         }
-        public void Deletecommande(string id)
+        public bool AddcommandeLivre(Commande cmd)
         {
-            access.deletecommande(id);
+           
+            Console.Write(cmd);
+            return access.addcommandeLivre(cmd);
         }
+        public bool AddCommandelivretable(CommandeDoc cmd)
+        {
+            
+            return access.addcommandeLivretable(cmd);
+        }
+        
+        public bool Deletecommande(Commande cmd)
+        {
+            return access.deletecommande(cmd);
+        }
+        
         public void Deletecommandedocument(string id)
         {
             access.deletecommandedocument(id);
         }
-        public List<CmdLivre> Getalldvdcmd()
+        public List<CmdLivreDvd> Getalldvdcmd()
         {
             return access.Getalldvdcmd();
         }
@@ -125,6 +145,11 @@ namespace MediaTekDocuments.controller
         {
             return access.Getallrevuecmd();
         }
-
+        public List<CmdLivreDvd> modifcmd(string id, etape etape)
+        {
+           return  access.modifcmd(id,etape);
+        }
+        
+        
     }
 }

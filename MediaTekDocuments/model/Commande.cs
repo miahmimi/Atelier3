@@ -11,14 +11,14 @@ namespace MediaTekDocuments.model
     /// </summary>
     public class Commande
     {
-        public string Id { get; set; }
-        public DateTime Date { get; set; }
-        public int Montant { get; set; }
-        public Commande(string id, DateTime dateCommande, int montant)
+        public string id { get; set; }
+        public DateTime dateCommande { get; set; }
+        public string montant { get; set; }
+        public Commande(string id, DateTime dateCommande, string montant)
         {
-            Id = id;
-            Date = dateCommande;
-            Montant = montant;
+            this.id = id;
+            this.dateCommande = dateCommande;
+            this.montant = montant;
         }
     }
 }

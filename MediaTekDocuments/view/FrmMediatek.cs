@@ -1167,6 +1167,7 @@ namespace MediaTekDocuments.view
                     string idEtat = ETATNEUF;
                     string idDocument = txbReceptionRevueNumero.Text;
                     Exemplaire exemplaire = new Exemplaire(numero, dateAchat, photo, idEtat, idDocument);
+                    Console.Write(exemplaire);
                     if (controller.CreerExemplaire(exemplaire))
                     {
                         AfficheReceptionExemplairesRevue();
@@ -1243,7 +1244,7 @@ namespace MediaTekDocuments.view
 
         #region commande livres 
         private readonly BindingSource bdg = new BindingSource();
-        private List<CmdLivre> commandeLivre = new List<CmdLivre>();
+        private List<CmdLivreDvd> commandeLivre = new List<CmdLivreDvd>();
 
         private void tabPage1_Enter(object sender, EventArgs e)
         {
@@ -1251,13 +1252,13 @@ namespace MediaTekDocuments.view
             RemplircommandeLivrecompletement();
 
         }
-        private void RemplircommandeListe(List<CmdLivre> commandelivre)
+        private void RemplircommandeListe(List<CmdLivreDvd> commandelivre)
         {
 
             bdg.DataSource = commandelivre;
             dgvcommandeLivre.DataSource = bdg;
             dgvcommandeLivre.Columns["idArticle"].DisplayIndex = 0;
-            dgvcommandeLivre.Columns["date"].DisplayIndex = 1;
+            //dgvcommandeLivre.Columns["date"].DisplayIndex = 1;
             // dgvcommandeLivre.Columns["id"].Visible = false; 
 
             dgvcommandeLivre.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -1273,28 +1274,71 @@ namespace MediaTekDocuments.view
         //Click sur le Bouton rechercher 
         private void btnrechlivre_Click(object sender, EventArgs e)
         {
+            string idrecherche = txtnumlivre.Text;
+
             if (txtnumlivre.Text != "")
             {
-                CmdLivre cmdlivre = commandeLivre.Find(x => x.idArticle.Equals(txtnumlivre.Text));
-                if (cmdlivre != null)
+                foreach (DataGridViewRow row in dgvcommandeLivre.Rows)
                 {
-                    List<CmdLivre> commande = new List<CmdLivre>() { cmdlivre };
-                    RemplircommandeListe(commande);
+                   
+                    CmdLivreDvd cmdlivre = commandeLivre.Find(x => x.idArticle.Equals(txtnumlivre.Text));
+                    if (cmdlivre != null)
+                    {
+                        List<CmdLivreDvd> commandelivre = new List<CmdLivreDvd>() { cmdlivre };
+                        RemplircommandeListe(commandelivre);
+                    }else
+                    {
+                        MessageBox.Show("Article introuvable");
+                    }
+                   
+                }
+            }
+           
+        }
+            
+        
+        private void btnajoutcmdL_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string id = txtidcmdL.Text;
+                string montant = txtmontantcmdL.Text;
+                string idlivre = txtidlivre.Text;
+                int nbexemplaire = int.Parse(txtnbcmdL.Text);
+
+                txtidcmdL.Clear();
+                txtmontantcmdL.Clear();
+                txtidlivre.Clear();
+                txtnbcmdL.Clear();
+
+                DateTime date = dtpcmdL.Value;
+                // DateTime date = new DateTime(2023, 5, 20);
+                Commande macommande = new Commande(id, date, montant);
+                controller.AddcommandeLivre(macommande);
+                CommandeDoc cmdlivre = new CommandeDoc(id, nbexemplaire, idlivre, "1");
+                controller.AddCommandelivretable(cmdlivre);
+                commandeLivre = controller.GetAllcommandeLivre();
+                //RemplircommandeLivrecompletement();
+                RemplircommandeListe(commandeLivre);
+                dgvcommandeLivre.Refresh();
+                Console.Write(macommande);
+                if (controller.AddcommandeLivre(macommande))
+                {
+                //    RemplircommandeLivrecompletement();
                 }
                 else
                 {
-                    MessageBox.Show("Article introuvable ");
-                    RemplircommandeLivrecompletement();
+                    MessageBox.Show("Erreur !", "Confirmation de suppression", MessageBoxButtons.OK);
                 }
+
             }
-        }
-        private void btnajoutcmdL_Click(object sender, EventArgs e)
-        {
-            string id = txtidcmdL.Text;
-            int montant = int.Parse(txtmontantcmdL.Text);
-            DateTime date = dtpcmdL.Value;
-            Commande unecommande = new Commande(id, date, montant);
-            controller.AddcommandeLivre(unecommande);
+            catch
+            {
+                MessageBox.Show("Veuillez remplir tous les champs ", "Information");
+            }
+            
+           
         }
         private void grbnewetape_Enter(object sender, EventArgs e)
         {
@@ -1304,47 +1348,94 @@ namespace MediaTekDocuments.view
                 grbnewetape.Visible = true;
             }
         }
-        private void btnoketape_Click(object sender, EventArgs e)
+        private void btnoketape_Click(object sender, EventArgs e) 
         {
-            grbnewetape.Visible = true;
-
-            string etape = txtnewetape.Text;
-            DataGridViewRow row = dgvcommandeLivre.SelectedRows[0];
-            row.Cells["Etape"].Value = txtnewetape.Text;
-            string iddoc = Convert.ToString(row.Cells["idLivreDvd"].Value);
-            int numero = 11;
-            DateTime date = Convert.ToDateTime(row.Cells["idLivreDvd"].Value);
-            string photo = "";
-            string idEtat = ETATNEUF;
-
-            //trigger
-            Exemplaire ex = new Exemplaire(numero, date, photo, idEtat, iddoc);
-            if (txtnewetape.Text == "livrée")
+            try
             {
-                controller.CreerExemplaire(ex);
+
+
+                grbnewetape.Visible = true;
+                DataGridViewRow row = dgvcommandeLivre.SelectedRows[0];
+
+                string newetape = returnnum(txtnewetape.Text);
+                //row.Cells["Etape"].Value = newetape;
+                string id = Convert.ToString(row.Cells["id"].Value);
+                //int nb = Convert.ToInt32(row.Cells["nbExemplaire "]);
+                string idArticle = Convert.ToString(row.Cells["idArticle"]);
+                string etape = newetape;
+                etape etp = new etape(newetape);
+
+                controller.modifcmd(id, etp);
+                commandeLivre = controller.GetAllcommandeLivre();
+                RemplircommandeListe(commandeLivre);
+                // RemplircommandeLivrecompletement();
             }
+            catch
+            {
+                MessageBox.Show("Erreur ");
+            }
+      
+
+        }
+        //methode qui renvoi le num  de l'etape 
+        private string returnnum (string etape)
+        {
+            string num = "0";
+
+            if (etape == "livrée")
+            {
+                num = "2";
+            }
+            else
+            {
+                if (etape == "relancée")
+                {
+                    num = "3";
+                }
+                else
+                {
+                    if (etape == "réglée")
+                    {
+                        num = "4";
+                    }
+                       
+                }
+            }
+            return num;
         }
 
         private void btnsuppr_Click(object sender, EventArgs e)
         {
-            if (dgvcommandeLivre.SelectedRows.Count > 0)
-            {
-                DialogResult result = MessageBox.Show("Voulez-vous vraiment supprimer la ligne sélectionnée ?", "Confirmation de suppression", MessageBoxButtons.YesNo);
+            DataGridViewRow row = dgvcommandeLivre.SelectedRows[0];
+            dgvcommandeLivre.Rows.Remove(row);
+            //if (dgvcommandeLivre.SelectedRows.Count > 0)
+            //{
+            //    DialogResult result = MessageBox.Show("Voulez-vous vraiment supprimer la ligne sélectionnée ?", "Confirmation de suppression", MessageBoxButtons.YesNo);
 
-                if (result == DialogResult.Yes)
-                {
-                    DataGridViewRow row = dgvcommandeLivre.SelectedRows[0];
-                    string id = Convert.ToString(row.Cells[4].Value);
-                    controller.Deletecommande(id);
-                    //controller.deletecommandedocument(id);
+             //   if (result == DialogResult.Yes)
+              //  {
+                //    if (dgvcommandeLivre.SelectedRows.Count > 0)
+                //    {
 
-                    dgvcommandeLivre.Rows.Remove(row);
+                     //   DataGridViewRow row = dgvcommandeLivre.SelectedRows[0];
+                     //   string id = Convert.ToString(row.Cells["Id"].Value);
+                     //   string montant = Convert.ToString(row.Cells["montant"].Value);
+                     //   DateTime date = Convert.ToDateTime(row.Cells["dateCommande"].Value);
+                        //string idlivre = Convert.ToString(row.Cells["idLivreDvd"].Value);
+                        //int nbexemplaire = Convert.ToInt32(row.Cells["nbExemplaire"].Value);
+                      //  Commande deletecmd = new Commande(id, date, montant);
+                      //  controller.Deletecommande(deletecmd);
+                       // RemplircommandeLivrecompletement();
+                       // dgvcommandeLivre.Rows.Remove(row);
 
-                    dgvcommandeLivre.Rows.Remove(row);
-                }
+                        // if (MessageBox.Show("Voulez-vous vraiment supprimer cet élément ?", "Confirmation de suppression", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        // {
 
-
-            }
+                        // }
+                   // }
+           
+             //   }
+           // }
         }
         #endregion
 
@@ -1357,7 +1448,7 @@ namespace MediaTekDocuments.view
 
         #region commande DVD 
         private readonly BindingSource bdgDvdListecmd = new BindingSource();
-        private List<CmdLivre> dvdcmd = new List<CmdLivre>();
+        private List<CmdLivreDvd> dvdcmd = new List<CmdLivreDvd>();
 
         /// <summary>
         /// Ouverture de l'onglet Commande DVD
@@ -1383,14 +1474,48 @@ namespace MediaTekDocuments.view
         /// Remplir le datagridview avec liste recue en paramètre 
         /// </summary>
         /// <param name="revues"></param>
-        public void Remplirlistedvd(List<CmdLivre> revues)
+        public void Remplirlistedvd(List<CmdLivreDvd> revues)
         {
             bdgDvdListecmd.DataSource = revues;
             dgvdvdcmd.DataSource = bdgDvdListecmd;
             dgvdvdcmd.Columns["Id"].DisplayIndex = 0;
-            dgvdvdcmd.Columns["Date"].DisplayIndex = 1;
+            //dgvdvdcmd.Columns["Date"].DisplayIndex = 1;
 
             dgvdvdcmd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+        /// <summary>
+        /// Btn recherche commande DVD 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnrecherdvd_Click(object sender, EventArgs e)
+        {
+            if (txtiddvd.Text != "")
+            {
+                CmdLivreDvd cmddvd = dvdcmd.Find(x => x.idArticle.Equals(txtiddvd.Text));
+                if (cmddvd != null)
+                {
+                    List<CmdLivreDvd> commande = new List<CmdLivreDvd>() { cmddvd };
+                    Remplirlistedvd(commande);
+                }
+                else
+                {
+                    MessageBox.Show("Article introuvable ");
+                    Rempliredvdcommandeliste();
+                }
+            } 
+
+        }
+        /// <summary>
+        /// Btn supprimer 
+        /// Supprimr une commande de DVD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnsupprdvd_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = dgvdvdcmd.SelectedRows[0];
+            dgvdvdcmd.Rows.Remove(row);
         }
         #endregion
 
@@ -1418,19 +1543,51 @@ namespace MediaTekDocuments.view
 
 
         }
+        //  Remplir la liste de commande (abonnement) revue 
         public void Remplirlisterevue(List<Cmdrevue> revues)
         {
             bdgrevues.DataSource = revues;
             dgvcmdRevue.DataSource = bdgrevues;
             dgvcmdRevue.Columns["Id"].DisplayIndex = 0;
-            dgvcmdRevue.Columns["Date"].DisplayIndex = 1;
-            dgvcmdRevue.Columns["Revue"].DisplayIndex = 2;
+            dgvcmdRevue.Columns["Numero"].Visible = false ;
+            //dgvcmdRevue.Columns["Date"].DisplayIndex = 1;
+            dgvcmdRevue.Columns["Revue"].DisplayIndex = 3;
+            dgvcmdRevue.Columns["dateCommande"].DisplayIndex = 1;
+            dgvcmdRevue.Columns["Fin_abonnement"].DisplayIndex = 2;
 
 
 
             dgvcmdRevue.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
 
+        }
+        //Ajouter un abonnement Revue ------------------
+        private void btnajoutcmdrevue_Click(object sender, EventArgs e)
+        {
+            //recup info--------------
+            string id = txtidcmdr.Text;
+            string montant = txtmontantr.Text;
+            string idrevue = txtidr.Text;
+            DateTime datecmd = dtpcommandere.Value;
+            DateTime datefinabonnement = dtpfinabonnement.Value;
+
+            //vider les champs---------
+            txtidcmdr.Clear();
+            txtmontantr.Clear();
+            txtidr.Clear();
+
+           //--------------------------
+            
+            Commande lacommande = new Commande(id, datecmd, montant);
+            controller.AddcommandeLivre(lacommande);
+           //----------------
+            Abonnement abonnement = new Abonnement(id, datefinabonnement, idrevue);
+            controller.Addabonnement(abonnement);
+            commanderevues = controller.Getallrevuecmd();
+            Remplirlisterevue(commanderevues);
+            
+            dgvcommandeLivre.Refresh();
+            
         }
         /// <summary>
         /// Suppression d'une commande de revues
@@ -1450,7 +1607,7 @@ namespace MediaTekDocuments.view
 
                 if (MessageBox.Show("Voulez-vous vraiment supprimer cet élément ?", "Confirmation de suppression", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    controller.Deletecommande(idcommande);
+                    //controller.Deletecommande();
                     RemplircommandeLivrecompletement();
                 }
             }
@@ -1479,6 +1636,15 @@ namespace MediaTekDocuments.view
         /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
+           
+        }
+        /// <summary>
+        /// Btn recherche revue 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnrecherrevue_Click(object sender, EventArgs e)
+        {
             if (txtidrevue.Text != "")
             {
                 Cmdrevue cmdrevue = commanderevues.Find(x => x.Revue.Equals(txtidrevue.Text));
@@ -1494,10 +1660,38 @@ namespace MediaTekDocuments.view
                 }
             }
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            //recup info --------------------------------
+            string id = txtiddvdcmd.Text;
+            string montant = txtcmddvdmontant.Text;
+            string iddvd = txtdvdidcmd.Text;
+            int nbexemplaire = int.Parse(txtcmddvdnb.Text);
+
+            txtiddvdcmd.Clear();
+            txtcmddvdmontant.Clear();
+            txtdvdidcmd.Clear();
+            txtcmddvdnb.Clear();
+
+            //date 
+            DateTime date = dtpcmddvd.Value;
+            
+            Commande commandedvd = new Commande(id, date, montant);
+            controller.AddcommandeLivre(commandedvd);
+            CommandeDoc cmddvd = new CommandeDoc(id, nbexemplaire, iddvd, "1");
+            controller.AddCommandelivretable(cmddvd);
+        }
 
 
         #endregion
 
+        private void btnsupprcmdrevue_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = dgvcmdRevue.SelectedRows[0];
+            dgvcmdRevue.Rows.Remove(row);
 
+
+        }
     }
 }
